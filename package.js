@@ -2,7 +2,7 @@ Package.describe({
   name: 'merlin:edmodo',
   summary: 'Edmodo OAuth flow',
   git: 'https://github.com/merlinpatt/edmodo',
-  version: '0.9.0',
+  version: '0.9.1',
   documentation: 'README.md'
 });
 
