@@ -22,9 +22,9 @@ Edmodo.requestCredential = function (options, credentialRequestCompleteCallback)
 
   var credentialToken = Random.secret();
 
-  var scope = config.scope || 'basic';
+  var scope = config.scope;
 
-  var redirectURI = config.redirectURI || OAuth._redirectUri('edmodo', config);
+  var redirectURI = config.redirectURI.trim() || OAuth._redirectUri('edmodo', config);
   var encodedRedirectURI = encodeURIComponent(redirectURI);
 
   var loginStyle = OAuth._loginStyle('edmodo', config, options);

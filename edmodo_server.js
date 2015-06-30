@@ -1,28 +1,33 @@
 Edmodo = {};
 
 OAuth.registerService('edmodo', 2, null, function(query) {
-console.log('getting accessToken with query');
-console.log(query);
-  var accessToken = getAccessToken(query);
-  var identity = getIdentity(accessToken);
-
+  // Returns data of the form:
+  // { access_token: 'token', expires_in: 7200, token_type: 'bearer' }
+  var accessData = getAccessData(query);
+  var identity = getIdentity(accessData.access_token);
+// Leave this so we know it sort of works
+console.log('accessData retrieved', accessData);
+console.log('identity retrieved', identity);
   return {
     serviceData: {
       id: identity.id,
-      email: identity.email,
-      accessToken: accessToken
+      accessToken: accessData.access_token,
+      refreshToken: accessData.refresh_token,
+      expiresIn: accessData.expires_in,
+      tokenType: accessData.token_type,
     },
     options: {
       profile: {
-        name: identity.first_name + identity.last_name
+        name: identity.first_name + identity.last_name,
+        email: identity.email,
+        type: identity.type,
       }
     }
   };
 });
 
-var getAccessToken = function getAccessToken (query) {
+var getAccessData = function getAccessData (query) {
   var config = ServiceConfiguration.configurations.findOne({service: 'edmodo'});
-  console.log('config', config);
   if (!config) {
     throw new ServiceConfiguration.ConfigError();
   }
@@ -30,18 +35,18 @@ var getAccessToken = function getAccessToken (query) {
   var response;
   try {
     response = HTTP.post(
-      'https://api.edmodo.com/oauth/authorize',
+      'https://api.edmodo.com/oauth/token',
       {
         headers: {Accept: 'application/json'},
         params: {
           client_id: config.clientID,
           client_secret: config.clientSecret,
-          redirect_uri: encodeURIComponent(config.redirectURI || OAuth._redirectUri('edmodo', config)),
+          redirect_uri: config.redirectURI.trim() || OAuth._redirectUri('edmodo', config),
           code: query.code,
           grant_type: 'authorization_code'
         }
       }
-    )
+    );
   }
   catch (err) {
     throw _.extend(
@@ -50,13 +55,7 @@ var getAccessToken = function getAccessToken (query) {
     );
   }
 
-  console.log('response', response);
-  console.log(response.data.access_token);
-  console.log(response.data.expires_in);
-  console.log(response.data.token_type);
-  console.log('r.data', response.data);
-
-  return response.data.access_token;
+  return response.data;
 };
 
 var getIdentity = function getIdentity (accessToken) {
