@@ -34,7 +34,8 @@ Edmodo.requestCredential = function (options, credentialRequestCompleteCallback)
       + '?client_id=' + config.clientID
       + '&response_type=code'
       + '&scope=' + scope
-      + '&redirect_uri=' + encodedRedirectURI;
+      + '&redirect_uri=' + encodedRedirectURI
+      + '&state=' + OAuth._stateParam(loginStyle, credentialToken);
 
   OAuth.launchLogin({
     loginService: 'edmodo',

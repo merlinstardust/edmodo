@@ -5,9 +5,7 @@ OAuth.registerService('edmodo', 2, null, function(query) {
   // { access_token: 'token', expires_in: 7200, token_type: 'bearer' }
   var accessData = getAccessData(query);
   var identity = getIdentity(accessData.access_token);
-// Leave this so we know it sort of works
-console.log('accessData retrieved', accessData);
-console.log('identity retrieved', identity);
+
   return {
     serviceData: {
       id: identity.id,
@@ -43,6 +41,7 @@ var getAccessData = function getAccessData (query) {
           client_secret: config.clientSecret,
           redirect_uri: config.redirectURI.trim() || OAuth._redirectUri('edmodo', config),
           code: query.code,
+          state: query.state,
           grant_type: 'authorization_code'
         }
       }
