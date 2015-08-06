@@ -16,9 +16,12 @@ OAuth.registerService('edmodo', 2, null, function(query) {
     },
     options: {
       profile: {
-        name: identity.first_name + identity.last_name,
+        name: identity.first_name + ' ' + identity.last_name,
+        firstName: identity.first_name,
+        lastName: identity.last_name,
         email: identity.email,
         type: identity.type,
+        edmodo: identity,
       }
     }
   };
