@@ -20,7 +20,6 @@ OAuth.registerService('edmodo', 2, null, function(query) {
         firstName: identity.first_name,
         lastName: identity.last_name,
         email: identity.email,
-        type: identity.type,
         edmodo: identity,
       }
     }
