@@ -6,7 +6,7 @@ Template.configureLoginServiceDialogForEdmodo.helpers({
 
 Template.configureLoginServiceDialogForEdmodo.fields = function () {
   return [
-    {property: 'clientID', label: 'Client ID'},
+    {property: 'clientId', label: 'Client Id'},
     {property: 'clientSecret', label: 'Client Secret'},
     {property: 'scope', label: 'Scope'},
     {property: 'redirectURI', label: 'Redirect URI'}

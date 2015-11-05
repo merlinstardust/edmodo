@@ -39,7 +39,7 @@ var getAccessData = function getAccessData (query) {
       {
         headers: {Accept: 'application/json'},
         params: {
-          client_id: config.clientID,
+          client_id: config.clientId,
           client_secret: config.clientSecret,
           redirect_uri: config.redirectURI.trim() || OAuth._redirectUri('edmodo', config),
           code: query.code,

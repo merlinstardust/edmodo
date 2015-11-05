@@ -31,7 +31,7 @@ Edmodo.requestCredential = function (options, credentialRequestCompleteCallback)
 
   var loginURL =
     'https://api.edmodo.com/oauth/authorize'
-      + '?client_id=' + config.clientID
+      + '?client_id=' + config.clientId
       + '&response_type=code'
       + '&scope=' + scope
       + '&redirect_uri=' + encodedRedirectURI

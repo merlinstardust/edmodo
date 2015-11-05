@@ -2,18 +2,19 @@ Package.describe({
   name: 'merlin:edmodo',
   summary: 'Edmodo OAuth flow',
   git: 'https://github.com/merlinpatt/edmodo',
-  version: '1.0.2',
+  version: '1.0.5',
   documentation: 'README.md'
 });
 
 Package.onUse(function(api) {
-  api.use('oauth2@1.1.3', ['client', 'server']);
-  api.use('oauth@1.1.4', ['client', 'server']);
-  api.use('http@1.1.0', ['server']);
-  api.use('templating@1.1.1', 'client');
-  api.use('underscore@1.0.3', 'client');
-  api.use('random@1.0.3', 'client');
-  api.use('service-configuration@1.0.4', ['client', 'server']);
+  api.versionsFrom('1.2.0.1');
+  api.use('oauth2', ['client', 'server']);
+  api.use('oauth', ['client', 'server']);
+  api.use('http', ['server']);
+  api.use('templating', 'client');
+  api.use('underscore', 'client');
+  api.use('random', 'client');
+  api.use('service-configuration', ['client', 'server']);
 
   api.export('Edmodo');
 
