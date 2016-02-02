@@ -6,22 +6,19 @@ OAuth.registerService('edmodo', 2, null, function(query) {
   var accessData = getAccessData(query);
   var identity = getIdentity(accessData.access_token);
 
+  var serviceData = {
+    accessToken: accessData.access_token,
+    refreshToken: accessData.refresh_token,
+    expiresIn: accessData.expires_in,
+    tokenType: accessData.token_type,
+  };
+
+  _.extend(serviceData, identity);
+
   return {
-    serviceData: {
-      id: identity.id,
-      accessToken: accessData.access_token,
-      refreshToken: accessData.refresh_token,
-      expiresIn: accessData.expires_in,
-      tokenType: accessData.token_type,
-    },
     options: {
-      profile: {
-        name: identity.first_name + ' ' + identity.last_name,
-        firstName: identity.first_name,
-        lastName: identity.last_name,
-        email: identity.email,
-        edmodo: identity,
-      }
+      serviceData: serviceData,
+      profile: {name: identity.first_name + ' ' + identity.last_name}
     }
   };
 });
