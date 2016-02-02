@@ -16,10 +16,8 @@ OAuth.registerService('edmodo', 2, null, function(query) {
   _.extend(serviceData, identity);
 
   return {
-    options: {
-      serviceData: serviceData,
-      profile: {name: identity.first_name + ' ' + identity.last_name}
-    }
+    serviceData: serviceData,
+    options: {profile: {name: identity.first_name + ' ' + identity.last_name}}
   };
 });
 
